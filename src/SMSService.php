@@ -103,7 +103,8 @@ class SMSService extends NRSGateway
                 'to' => $to,
                 'message' => $this->msg,
                 'from' => $this->from,
-                'parts' => $this->parts
+                'parts' => $this->parts,
+                'trans' => $this->trsec ? 1 : 0
             ];
 
             if (!empty($this->campaignName)) {
