@@ -1,5 +1,4 @@
 <?php
-
 namespace efidatansantana\nrsgateway;
 
 /**
@@ -7,7 +6,7 @@ namespace efidatansantana\nrsgateway;
  *
  * Class to allow the consumption of SMS services offered by NRS Gateway - http://www.nrsgateway.com
  *
- * @package marqu3s\nrsgateway
+ * @package efidatansantana\nrsgateway
  */
 class NRSGateway
 {
@@ -17,7 +16,7 @@ class NRSGateway
     /** @var string $password The password to use in authentication. */
     public $password;
 
-    /** @var string $_base64AuthHeader The base64 string representation of "username:password" string. */
+    /** @var string $base64AuthHeader The base64 string representation of "username:password" string. */
     public $base64AuthHeader;
 
     public function __construct($username, $password)
