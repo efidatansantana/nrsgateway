@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\NRSGateway;
+namespace efidatansantana\NrsGateway;
 
 use Illuminate\Support\Facades\Log;
 
