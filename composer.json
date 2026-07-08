@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "efidatansantana\\nrsgateway\\": "src/"
+            "Efidatansantana\\NrsGateway\\": "src/"
         }
     }
 }
