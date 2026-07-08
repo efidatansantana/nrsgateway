@@ -1,22 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joao
- * Date: 29/07/16
- * Time: 12:29
- */
-namespace marqu3s\nrsgateway;
 
-use yii\helpers\VarDumper;
-use Yii;
+namespace App\Services\NRSGateway;
+
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class SMSService
  *
  * Allows to use the SMS API.
  * Sample JSON: {"to":["34666555444"],"text":"Hi! This is a test message.","from":"John Smith"}
- *
- * @package marqu3s\nrsgateway
  */
 class SMSService extends NRSGateway
 {
@@ -28,7 +20,7 @@ class SMSService extends NRSGateway
     /** @var string $msg The message to be sent. Maximum of 160 chars for GSM and 70 for UTF16. */
     public $msg = '';
 
-    /** @var array $to The numbers that will receive the message same message. */
+    /** @var array $to The numbers that will receive the same message. */
     public $to = [];
 
     /** @var string $from The sender. Max of 15 digits or 11 characters. */
@@ -46,18 +38,16 @@ class SMSService extends NRSGateway
     /** @var bool OPTIONAL - If true the server will replace accented chars automatically. */
     public $trsec = true;
 
-    /** @var string Campain name. */
+    /** @var string Campaign name. */
     public $campaignName;
 
-
     /**
-     * Splits the the $to list in chunks of self::TO_LIMIT_PER_REQUEST.
+     * Splits the $to list in chunks of self::TO_LIMIT_PER_REQUEST.
      * Send the message to every element in all chunks.
      * @return array|boolean
      */
     public function send()
     {
-        # Check it $this->to is an array.
         if (!is_array($this->to)) {
             return [
                 0 => [
@@ -70,20 +60,18 @@ class SMSService extends NRSGateway
             ];
         }
 
-        # Check if there are any recipients.
         if (count($this->to) === 0) {
             return [
                 0 => [
-                     'result' => [
-                         'httpCode' => 400,
-                         'header' => '',
-                         'body' => '{"error":{"code":102,"description":"No valid recipients"}}'
-                     ]
+                    'result' => [
+                        'httpCode' => 400,
+                        'header' => '',
+                        'body' => '{"error":{"code":102,"description":"No valid recipients"}}'
+                    ]
                 ]
             ];
         }
 
-        # Check if there is a sender.
         if (strlen($this->from) === 0) {
             return [
                 0 => [
@@ -96,7 +84,6 @@ class SMSService extends NRSGateway
             ];
         }
 
-        # Check if there is a message.
         if (strlen($this->msg) === 0) {
             return [
                 0 => [
@@ -109,7 +96,6 @@ class SMSService extends NRSGateway
             ];
         }
 
-        # Send the messages in chunks.
         $arrChunk = array_chunk($this->to, self::TO_LIMIT_PER_REQUEST);
         foreach ($arrChunk as $i => $to) {
             $data = [
@@ -129,7 +115,6 @@ class SMSService extends NRSGateway
 
         return $arrChunk;
     }
-
 
     private function doSend($data)
     {
@@ -157,9 +142,9 @@ class SMSService extends NRSGateway
             'body' => $body
         ];
 
-        if (YII_DEBUG) {
-            Yii::info('SMS SENT TO: ' . VarDumper::dumpAsString($data['to']), __METHOD__);
-            Yii::info('API RESPONSE: ' . VarDumper::dumpAsString($result), __METHOD__);
+        if (config('app.debug')) {
+            Log::info('SMS SENT TO: ' . print_r($data['to'], true));
+            Log::info('API RESPONSE: ' . print_r($result, true));
         }
 
         return $result;
