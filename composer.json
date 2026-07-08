@@ -9,7 +9,8 @@
             "email": "joao@jjmf.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true
     "require": {},
     "require-dev": {
         "phpunit/phpunit": "*"
