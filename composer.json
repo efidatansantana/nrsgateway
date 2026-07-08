@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "marqu3s\\nrsgateway\\": "src/"
+            "efidatansantana\\nrsgateway\\": "src/"
         }
     }
 }
