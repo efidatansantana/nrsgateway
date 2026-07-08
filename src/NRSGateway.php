@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joao
- * Date: 29/07/16
- * Time: 12:11
- */
 
-namespace marqu3s\nrsgateway;
+namespace efidatansantana\nrsgateway;
 
 /**
  * Class NRSGateway
