@@ -144,11 +144,6 @@ class SMSService extends NRSGateway
             'body' => $body
         ];
 
-        if (config('app.debug')) {
-            Log::info('SMS SENT TO: ' . print_r($data['to'], true));
-            Log::info('API RESPONSE: ' . print_r($result, true));
-        }
-
         return $result;
     }
 }
