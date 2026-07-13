@@ -98,7 +98,7 @@ class SMSService extends NRSGateway
 
         $arrChunk = array_chunk($this->to, self::TO_LIMIT_PER_REQUEST);
         foreach ($arrChunk as $i => $to) {
-            $to = ltrim($item['to'], '+');
+            $to = str_replace('+', '', $to);
             $data = [
                 'encoding' => $this->encoding,
                 'to' => $to,
